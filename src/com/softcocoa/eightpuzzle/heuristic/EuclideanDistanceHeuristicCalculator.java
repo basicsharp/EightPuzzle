@@ -7,7 +7,7 @@ public class EuclideanDistanceHeuristicCalculator implements
 
 	@Override
 	public double calculate(PuzzleState targetState, PuzzleState baseState) {
-		// TODO Auto-generated method stub
+		// TODO
 		return 0;
 	}
 

@@ -13,7 +13,10 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 
+import com.softcocoa.eightpuzzle.heuristic.EuclideanDistanceHeuristicCalculator;
 import com.softcocoa.eightpuzzle.heuristic.HeuristicCalculator;
+import com.softcocoa.eightpuzzle.heuristic.ManhattanDistanceHeuristicCalculator;
+import com.softcocoa.eightpuzzle.heuristic.MisplacedTilesHeuristicCalculator;
 import com.softcocoa.eightpuzzle.solvers.AStarSearching;
 import com.softcocoa.eightpuzzle.solvers.PuzzleSolveAlgorithm;
 
@@ -58,6 +61,12 @@ public class Main {
 	
 	private static void initPuzzle() {
 		int[] tiles = Helper.randomInitialPuzzleStateTiles();
+		initialPuzzleState = new PuzzleState(tiles);
+		drawPuzzle(initialPuzzleState);
+	}
+	
+	private static void drawPuzzle(PuzzleState state) {
+		int[] tiles = state.getTiles();
 		for (int i=0; i<tiles.length; i++) {
 			if (tiles[i]!=0) {
 				uiTiles[i].setText(""+tiles[i]);
@@ -68,7 +77,6 @@ public class Main {
 				uiTiles[i].setVisible(false);
 			} 
 		}
-		initialPuzzleState = new PuzzleState(tiles);
 	}
 	
 	// XWT stubs 
@@ -84,21 +92,29 @@ public class Main {
 		System.out.println(heuristicCombo.getSelectionIndex());
 	}
 	public void onSolveButtonSelection(Event event) {
-		// TODO
-		PuzzleSolveAlgorithm algorithm = new AStarSearching(initialPuzzleState, new HeuristicCalculator() {
-			
-			@Override
-			public double calculate(PuzzleState targetState, PuzzleState baseState) {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-		});
+		HeuristicCalculator hCalculator = null;
+		switch (heuristicCombo.getSelectionIndex()) {
+			case 1:
+				hCalculator = new ManhattanDistanceHeuristicCalculator();
+				break;
+	
+			case 2:
+				hCalculator = new EuclideanDistanceHeuristicCalculator();
+				break;
+				
+			case 3:
+				hCalculator = new MisplacedTilesHeuristicCalculator();
+				break;
+		}
+//		PuzzleSolveAlgorithm algorithm = new AStarSearching(initialPuzzleState, hCalculator);
+//		LinkedList<PuzzleState> steps = algorithm.solvePuzzle();
+//		drawPuzzle(steps.get(steps.size()-1));
 	}
 	public void onExitButtonSelection(Event event) {
 		System.exit(1);
 	}
 	public void onHeuristicComboModify(Event event) {
-		if (solveButton !=null) {
+		if (solveButton != null) {
 			if ( ((Combo) event.widget).getSelectionIndex() != 0)
 				solveButton.setEnabled(true);
 			else

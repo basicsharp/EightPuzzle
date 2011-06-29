@@ -91,7 +91,6 @@ public class PuzzleState {
 	}
 	
 	// Getters and setters
-	
 	public int getTile(int index) {
 		return tiles[index];
 	}

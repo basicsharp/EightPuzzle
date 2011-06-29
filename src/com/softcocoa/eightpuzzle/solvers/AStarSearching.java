@@ -19,7 +19,7 @@ public class AStarSearching extends PuzzleSolveAlgorithm {
 
 	@Override
 	public LinkedList<PuzzleState> solvePuzzle() {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 
