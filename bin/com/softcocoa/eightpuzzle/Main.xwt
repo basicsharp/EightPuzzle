@@ -1,0 +1,120 @@
+<Shell xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" x:Class="com.softcocoa.eightpuzzle.Main" text="Eight Puzzle" xmlns:p1="clr-namespace:java.lang">
+	<Shell.layout>
+		<GridLayout makeColumnsEqualWidth="true"/>
+	</Shell.layout>
+	<Composite>
+		<Composite.layout>
+			<GridLayout makeColumnsEqualWidth="true" numColumns="3"/>
+		</Composite.layout>
+		<Composite.layoutData>
+			<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL" grabExcessVerticalSpace="true"/>
+		</Composite.layoutData>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile0">
+			<CLabel.layoutData>
+				<GridData grabExcessVerticalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile1">
+			<CLabel.layoutData>
+				<GridData verticalAlignment="FILL" horizontalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile2">
+			<CLabel.layoutData>
+				<GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile3">
+			<CLabel.layoutData>
+				<GridData grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile4">
+			<CLabel.layoutData>
+				<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile5">
+			<CLabel.layoutData>
+				<GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile6">
+			<CLabel.layoutData>
+				<GridData grabExcessVerticalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile7">
+			<CLabel.layoutData>
+				<GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+		<CLabel text="" x:Style="SHADOW_OUT" alignment="CENTER" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" font="Lucida Grande,32" x:Name="tile8">
+			<CLabel.layoutData>
+				<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+			</CLabel.layoutData>
+		</CLabel>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<FillLayout/>
+		</Composite.layout>
+		<Composite.layoutData>
+			<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+		</Composite.layoutData>
+		<Group>
+			<Group.layout>
+				<GridLayout numColumns="4" horizontalSpacing="0" verticalSpacing="0"/>
+			</Group.layout>
+			<Combo x:Name="heuristicCombo" x:Style="READ_ONLY" toolTipText="" text="- Select a heuristic calculation -" ModifyEvent="onHeuristicComboModify">
+				<Combo.layoutData>
+					<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+				</Combo.layoutData>
+				<Combo.items>
+					<p1:String>- Select a heuristic calculation -</p1:String>
+					<p1:String>Manhattan Distance</p1:String>
+					<p1:String>Euclidean Distance</p1:String>
+					<p1:String>Misplaced Tiles</p1:String>
+				</Combo.items>
+			</Combo>
+			<CLabel text="Step: 322/333" x:Style="RIGHT" x:Name="stepLabel" rightMargin="5">
+				<CLabel.layoutData>
+					<GridData horizontalAlignment="RIGHT" widthHint="110"/>
+				</CLabel.layoutData>
+			</CLabel>
+			<Button text="Prev" x:Name="prevButton" x:Style="BORDER | CENTER">
+				<Button.layoutData>
+					<GridData horizontalAlignment="CENTER" verticalAlignment="CENTER"/>
+				</Button.layoutData>
+			</Button>
+			<Button text="Next" x:Name="nextButton" x:Style="CENTER">
+				<Button.layoutData>
+					<GridData horizontalAlignment="CENTER"/>
+				</Button.layoutData>
+			</Button>
+		</Group>
+	</Composite>
+	<Composite>
+		<Composite.layout>
+			<GridLayout numColumns="3" makeColumnsEqualWidth="true"/>
+		</Composite.layout>
+		<Composite.layoutData>
+			<GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+		</Composite.layoutData>
+		<Button text="Random Tiles" x:Style="CENTER" x:Name="randomButton" SelectionEvent="onRandomButtonSelection">
+			<Button.layoutData>
+				<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+			</Button.layoutData>
+		</Button>
+		<Button text="Solve Puzzle!" x:Style="CENTER" x:Name="solveButton" enabled="false" SelectionEvent="onSolveButtonSelection">
+			<Button.layoutData>
+				<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+			</Button.layoutData>
+		</Button>
+		<Button text="Exit" x:Name="exitButton" SelectionEvent="onExitButtonSelection" x:Style="CENTER">
+			<Button.layoutData>
+				<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+			</Button.layoutData>
+		</Button>
+	</Composite>
+</Shell>
