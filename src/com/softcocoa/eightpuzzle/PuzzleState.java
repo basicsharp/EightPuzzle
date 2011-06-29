@@ -1,6 +1,6 @@
 package com.softcocoa.eightpuzzle;
 
-import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class PuzzleState {
 	private int[] tiles;
@@ -26,8 +26,8 @@ public class PuzzleState {
 //			this.heuristic = 0;
 //	}
 	 
-	public TreeMap<Integer, PuzzleState> expand() {
-		TreeMap<Integer, PuzzleState> expandedStates = new TreeMap<Integer, PuzzleState>();
+	public TreeSet<PuzzleState> expand() {
+		TreeSet<PuzzleState> expandedStates = new TreeSet<PuzzleState>();
 		int blankTilePosition = Helper.searchTileInTiles(C.BLANK_TILE, tiles);
 		
 		boolean blankTileUpMovable = (blankTilePosition/C.PUZZLE_SIDE_LENGTH)-1 >= 0;
@@ -44,7 +44,7 @@ public class PuzzleState {
 			newTiles[swapPosition] = temp;
 			
 			PuzzleState newState = new PuzzleState(newTiles);
-			expandedStates.put(newState.hashCode(), newState);
+			expandedStates.add(newState);
 		}
 		
 		if (blankTileDownMovable) {
@@ -56,7 +56,7 @@ public class PuzzleState {
 			newTiles[swapPosition] = temp;
 			
 			PuzzleState newState = new PuzzleState(newTiles);
-			expandedStates.put(newState.hashCode(), newState);
+			expandedStates.add(newState);
 		}
 		
 		if (blankTileLeftMovable) {
@@ -68,7 +68,7 @@ public class PuzzleState {
 			newTiles[swapPosition] = temp;
 			
 			PuzzleState newState = new PuzzleState(newTiles);
-			expandedStates.put(newState.hashCode(), newState);
+			expandedStates.add(newState);
 		}
 		
 		if (blankTileRightMovable) {
@@ -80,10 +80,14 @@ public class PuzzleState {
 			newTiles[swapPosition] = temp;
 			
 			PuzzleState newState = new PuzzleState(newTiles);
-			expandedStates.put(newState.hashCode(), newState);
+			expandedStates.add(newState);
 		}
 		
 		return expandedStates;
+	}
+	
+	public boolean equals(PuzzleState state) {
+		return tiles.equals(state.getTiles());
 	}
 	
 	public boolean isFinishState() {

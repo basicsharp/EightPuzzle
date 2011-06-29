@@ -6,7 +6,7 @@ There are some unimplemented methods left as listed below:
 
 __AStarSearching.solvePuzzle()__
 
-I prepared 2 TreeMap named "nodes" and "expandedNodes" for node pruning following the A* search algorithm. hCalculator will calculate heuristic score (the lower is the better).
+I prepared 2 ~~TreeMap~~ TreeSet named "nodes" and "expandedNodes" for node pruning following the A* search algorithm. hCalculator will calculate heuristic score (the lower is the better).
 
 and 3 more methods…
 
