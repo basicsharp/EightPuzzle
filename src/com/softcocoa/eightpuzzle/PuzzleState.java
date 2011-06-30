@@ -91,7 +91,7 @@ public class PuzzleState {
 	}
 	
 	public boolean isFinishState() {
-		return tiles.equals(C.FINISH_PUZZLE_TILES);
+		return tiles.equals(C.FINISH_PUZZLE_TILES());
 	}
 	
 	// Getters and setters

@@ -1,6 +1,6 @@
 package com.softcocoa.eightpuzzle.solvers;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import com.softcocoa.eightpuzzle.PuzzleState;
 import com.softcocoa.eightpuzzle.heuristic.HeuristicCalculator;
@@ -8,8 +8,8 @@ import com.softcocoa.eightpuzzle.heuristic.HeuristicCalculator;
 
 public abstract class PuzzleSolveAlgorithm {
 	
-	private PuzzleState initialState;
-	private HeuristicCalculator hCalculator;
+	protected PuzzleState initialState;
+	protected HeuristicCalculator hCalculator;
 	
 	public PuzzleSolveAlgorithm(PuzzleState initialState, HeuristicCalculator hCalculator) {
 		super();
@@ -17,5 +17,5 @@ public abstract class PuzzleSolveAlgorithm {
 		this.hCalculator = hCalculator;
 	}
 
-	public abstract LinkedList<PuzzleState> solvePuzzle();
+	public abstract ArrayList<PuzzleState> solvePuzzle();
 }

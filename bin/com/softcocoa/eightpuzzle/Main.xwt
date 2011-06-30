@@ -77,17 +77,17 @@
 					<p1:String>Misplaced Tiles</p1:String>
 				</Combo.items>
 			</Combo>
-			<CLabel text="Step: 322/333" x:Style="RIGHT" x:Name="stepLabel" rightMargin="5">
+			<CLabel text="" x:Style="RIGHT" x:Name="stepLabel" rightMargin="5">
 				<CLabel.layoutData>
 					<GridData horizontalAlignment="RIGHT" widthHint="110"/>
 				</CLabel.layoutData>
 			</CLabel>
-			<Button text="Prev" x:Name="prevButton" x:Style="BORDER | CENTER">
+			<Button text="Prev" x:Name="prevButton" x:Style="CENTER" SelectionEvent="onPrevButtonSelection" enabled="false">
 				<Button.layoutData>
 					<GridData horizontalAlignment="CENTER" verticalAlignment="CENTER"/>
 				</Button.layoutData>
 			</Button>
-			<Button text="Next" x:Name="nextButton" x:Style="CENTER">
+			<Button text="Next" x:Name="nextButton" x:Style="CENTER" SelectionEvent="onNextButtonSelection" enabled="false">
 				<Button.layoutData>
 					<GridData horizontalAlignment="CENTER"/>
 				</Button.layoutData>

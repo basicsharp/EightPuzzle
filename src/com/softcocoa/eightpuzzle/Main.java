@@ -1,7 +1,9 @@
 package com.softcocoa.eightpuzzle;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import org.eclipse.e4.xwt.IConstants;
 import org.eclipse.e4.xwt.XWT;
@@ -26,8 +28,15 @@ public class Main {
 	private static CLabel[] uiTiles;
 	private static Combo heuristicCombo;
 	private static Button solveButton;
+	private static CLabel stepLabel;
+	private static Button prevButton;
+	private static Button nextButton;
 	
 	private static PuzzleState initialPuzzleState; 
+	
+	private static int numberOfSteps;
+	private static int stepIndex;
+	private static ArrayList<PuzzleState> steps;
 
 	public static void main(String args[]) throws Exception {
 		// XWT init
@@ -45,7 +54,9 @@ public class Main {
 		}
 		heuristicCombo = (Combo) XWT.findElementByName(shell, "heuristicCombo");
 		solveButton = (Button) XWT.findElementByName(shell, "solveButton");
-		
+		stepLabel = (CLabel) XWT.findElementByName(shell, "stepLabel");
+		prevButton = (Button) XWT.findElementByName(shell, "prevButton");
+		nextButton = (Button) XWT.findElementByName(shell, "nextButton");
 		
 		// data stuctures and puzzle tiles init
 		initPuzzle();
@@ -88,10 +99,28 @@ public class Main {
 	}
 	
 	public void onRandomButtonSelection(Event event) {
+		stepLabel.setText("");
 		initPuzzle();
-		System.out.println(heuristicCombo.getSelectionIndex());
+		prevButton.setEnabled(false);
+		nextButton.setEnabled(false);
+	}
+	public void onExitButtonSelection(Event event) {
+		System.exit(1);
+	}
+	public void onHeuristicComboModify(Event event) {
+		if (solveButton != null) {
+			if ( ((Combo) event.widget).getSelectionIndex() != 0)
+				solveButton.setEnabled(true);
+			else
+				solveButton.setEnabled(false);
+		}
 	}
 	public void onSolveButtonSelection(Event event) {
+		stepIndex = 0;
+		numberOfSteps = 0;
+		steps = null;
+		stepLabel.setText("");
+		
 		HeuristicCalculator hCalculator = null;
 		switch (heuristicCombo.getSelectionIndex()) {
 			case 1:
@@ -106,19 +135,39 @@ public class Main {
 				hCalculator = new MisplacedTilesHeuristicCalculator();
 				break;
 		}
-//		PuzzleSolveAlgorithm algorithm = new AStarSearching(initialPuzzleState, hCalculator);
-//		LinkedList<PuzzleState> steps = algorithm.solvePuzzle();
-//		drawPuzzle(steps.get(steps.size()-1));
+		PuzzleSolveAlgorithm algorithm = new AStarSearching(initialPuzzleState, hCalculator);
+		steps = algorithm.solvePuzzle();
+		
+		numberOfSteps = steps.size();
+		stepIndex = steps.size()-1;
+		drawPuzzle(steps.get(stepIndex));
+		printStepLabel(stepIndex+1);
+		
+		prevButton.setEnabled(true);
+		nextButton.setEnabled(false);
 	}
-	public void onExitButtonSelection(Event event) {
-		System.exit(1);
-	}
-	public void onHeuristicComboModify(Event event) {
-		if (solveButton != null) {
-			if ( ((Combo) event.widget).getSelectionIndex() != 0)
-				solveButton.setEnabled(true);
-			else
-				solveButton.setEnabled(false);
+	public void onPrevButtonSelection(Event event) {
+		if(stepIndex>0) {
+			drawPuzzle(steps.get(--stepIndex));
+			printStepLabel(stepIndex+1);
+			nextButton.setEnabled(true);
 		}
+		if(stepIndex<=0) {
+			prevButton.setEnabled(false);
+		}
+	}
+	public void onNextButtonSelection(Event event) {
+		if(stepIndex<numberOfSteps-1) {
+			drawPuzzle(steps.get(++stepIndex));
+			printStepLabel(stepIndex+1);
+			prevButton.setEnabled(true);
+		}
+		if(stepIndex>=numberOfSteps-1) {
+			nextButton.setEnabled(false);
+		}
+	}
+	
+	public void printStepLabel(int stepIndex) {
+		stepLabel.setText("Step: "+stepIndex+"/"+numberOfSteps);
 	}
 }
