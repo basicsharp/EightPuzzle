@@ -29,11 +29,11 @@ public class AStarSearching extends PuzzleSolveAlgorithm {
 		// until we reach the goal and extract the solution path from closedNodes into solvingSteps.
 		
 		// testing dummy
-		/*steps.add(initialState);
-		steps.add(new PuzzleState(new int[]{1,0,3,4,2,5,7,8,6}));
-		steps.add(new PuzzleState(new int[]{1,3,4,0,5,2,7,8,6}));
-		steps.add(new PuzzleState(C.FINISH_PUZZLE_TILES()));
-		steps.trimToSize();*/
+		/*solvingSteps.add(initialState);
+		solvingSteps.add(new PuzzleState(null, new int[]{1,0,3,4,2,5,7,8,6}));
+		solvingSteps.add(new PuzzleState(null, new int[]{1,3,4,0,5,2,7,8,6}));
+		solvingSteps.add(new PuzzleState(null, C.FINISH_PUZZLE_TILES()));
+		solvingSteps.trimToSize();*/
 		
 		solvingSteps.trimToSize();
 		return solvingSteps;
