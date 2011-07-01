@@ -13,28 +13,30 @@ import com.softcocoa.eightpuzzle.heuristic.HeuristicCalculator;
 public class AStarSearching extends PuzzleSolveAlgorithm {
 	
 	private TreeSet<PuzzleState> nodes;
-	private Stack<PuzzleState> closedNodes;
+	private ArrayList<PuzzleState> closedNodes;
 
 	public AStarSearching(PuzzleState initialState, HeuristicCalculator hCalculator) {
 		super(initialState, hCalculator);
 		nodes = new TreeSet<PuzzleState>(puzzleStateHeuristicComparator);
-		closedNodes = new Stack<PuzzleState>();
+		closedNodes = new ArrayList<PuzzleState>(C.INITIAL_CLOSED_LIST_SIZE);
 		nodes.add(initialState);
 	}
 
 	@Override
 	public ArrayList<PuzzleState> solvePuzzle() {
-		ArrayList<PuzzleState> steps = new ArrayList<PuzzleState>(C.INITIAL_STEP_LIST_SIZE);
-		// TODO
+		ArrayList<PuzzleState> solvingSteps = new ArrayList<PuzzleState>(C.INITIAL_STEP_LIST_SIZE);
+		// TODO expand PuzzleState in nodes TreeSet and keep expanded nodes in closedNodes
+		// until we reach the goal and extract the solution path from closedNodes into solvingSteps.
 		
-		/*// testing dummy
-		steps.add(initialState);
+		// testing dummy
+		/*steps.add(initialState);
 		steps.add(new PuzzleState(new int[]{1,0,3,4,2,5,7,8,6}));
 		steps.add(new PuzzleState(new int[]{1,3,4,0,5,2,7,8,6}));
 		steps.add(new PuzzleState(C.FINISH_PUZZLE_TILES()));
 		steps.trimToSize();*/
 		
-		return steps;
+		solvingSteps.trimToSize();
+		return solvingSteps;
 	}
 	
 	private Comparator<PuzzleState> puzzleStateHeuristicComparator = new Comparator<PuzzleState>() {

@@ -3,13 +3,14 @@ package com.softcocoa.eightpuzzle;
 import java.util.TreeSet;
 
 public class PuzzleState {
-	private int[] tiles;
-	private double heuristic;
-//	private PuzzleState heuristicBaseState;
+	protected int[] tiles;
+	protected double heuristic;
+	protected PuzzleState parent;
+//	protected PuzzleState heuristicBaseState;
 	
-//	private HeuristicCalculator hCalculator;
+//	protected HeuristicCalculator hCalculator;
 	
-	public PuzzleState(int[] tiles) {
+	public PuzzleState(PuzzleState parent, int[] tiles) {
 		this.tiles = tiles;
 	}
 	
@@ -43,7 +44,7 @@ public class PuzzleState {
 			newTiles[blankTilePosition] = newTiles[swapPosition];
 			newTiles[swapPosition] = temp;
 			
-			PuzzleState newState = new PuzzleState(newTiles);
+			PuzzleState newState = new PuzzleState(this, newTiles);
 			expandedStates.add(newState);
 		}
 		
@@ -55,7 +56,7 @@ public class PuzzleState {
 			newTiles[blankTilePosition] = newTiles[swapPosition];
 			newTiles[swapPosition] = temp;
 			
-			PuzzleState newState = new PuzzleState(newTiles);
+			PuzzleState newState = new PuzzleState(this, newTiles);
 			expandedStates.add(newState);
 		}
 		
@@ -67,7 +68,7 @@ public class PuzzleState {
 			newTiles[blankTilePosition] = newTiles[swapPosition];
 			newTiles[swapPosition] = temp;
 			
-			PuzzleState newState = new PuzzleState(newTiles);
+			PuzzleState newState = new PuzzleState(this, newTiles);
 			expandedStates.add(newState);
 		}
 		
@@ -79,7 +80,7 @@ public class PuzzleState {
 			newTiles[blankTilePosition] = newTiles[swapPosition];
 			newTiles[swapPosition] = temp;
 			
-			PuzzleState newState = new PuzzleState(newTiles);
+			PuzzleState newState = new PuzzleState(this, newTiles);
 			expandedStates.add(newState);
 		}
 		
@@ -119,5 +120,12 @@ public class PuzzleState {
 		this.heuristic = heuristic;
 	}
 	
+	public PuzzleState getParent() {
+		return parent;
+	}
+	
+	public void setParent(PuzzleState state) {
+		this.parent = state;
+	}
 	
 }

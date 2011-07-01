@@ -72,7 +72,7 @@ public class Main {
 	
 	private static void initPuzzle() {
 		int[] tiles = Helper.randomInitialPuzzleStateTiles();
-		initialPuzzleState = new PuzzleState(tiles);
+		initialPuzzleState = new PuzzleState(null, tiles);
 		drawPuzzle(initialPuzzleState);
 	}
 	
