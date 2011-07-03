@@ -2,8 +2,6 @@ package com.softcocoa.eightpuzzle;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.ListIterator;
 
 import org.eclipse.e4.xwt.IConstants;
 import org.eclipse.e4.xwt.XWT;

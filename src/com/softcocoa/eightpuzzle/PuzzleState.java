@@ -1,6 +1,10 @@
 package com.softcocoa.eightpuzzle;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.TreeSet;
+
+import com.softcocoa.eightpuzzle.heuristic.HeuristicCalculator;
 
 public class PuzzleState {
 	protected int[] tiles;
@@ -11,6 +15,7 @@ public class PuzzleState {
 //	protected HeuristicCalculator hCalculator;
 	
 	public PuzzleState(PuzzleState parent, int[] tiles) {
+		this.parent = parent;
 		this.tiles = tiles;
 	}
 	
@@ -27,12 +32,12 @@ public class PuzzleState {
 //			this.heuristic = 0;
 //	}
 	 
-	public TreeSet<PuzzleState> expand() {
-		TreeSet<PuzzleState> expandedStates = new TreeSet<PuzzleState>();
+	public ArrayList<PuzzleState> expand() {
+		ArrayList<PuzzleState> expandedStates = new ArrayList<PuzzleState>(4);
 		int blankTilePosition = Helper.searchTileInTiles(C.BLANK_TILE, tiles);
 		
-		boolean blankTileUpMovable = (blankTilePosition/C.PUZZLE_SIDE_LENGTH)-1 >= 0;
-		boolean blankTileDownMovable = (blankTilePosition/C.PUZZLE_SIDE_LENGTH)+1 < C.PUZZLE_SIDE_LENGTH;
+		boolean blankTileUpMovable = ((int) blankTilePosition/C.PUZZLE_SIDE_LENGTH)-1 >= 0;
+		boolean blankTileDownMovable = ((int) blankTilePosition/C.PUZZLE_SIDE_LENGTH)+1 < C.PUZZLE_SIDE_LENGTH;
 		boolean blankTileLeftMovable = (blankTilePosition%C.PUZZLE_SIDE_LENGTH)-1 >= 0;
 		boolean blankTileRightMovable = (blankTilePosition%C.PUZZLE_SIDE_LENGTH)+1 < C.PUZZLE_SIDE_LENGTH;
 		
@@ -84,15 +89,27 @@ public class PuzzleState {
 			expandedStates.add(newState);
 		}
 		
+		expandedStates.trimToSize();
 		return expandedStates;
 	}
 	
-	public boolean equals(PuzzleState state) {
-		return tiles.equals(state.getTiles());
+	public boolean equals(Object obj) {
+		return Arrays.equals(tiles, ((PuzzleState) obj).getTiles());
+//		return tiles.equals(((PuzzleState) obj).getTiles());
 	}
 	
 	public boolean isFinishState() {
-		return tiles.equals(C.FINISH_PUZZLE_TILES());
+		return Arrays.equals(tiles, C.FINISH_PUZZLE_TILES());
+	}
+	
+	public String toString() {
+		String output = "";
+		for (int i = 0; i < tiles.length; i++) {
+			output += ", " + tiles[i]; 
+		}
+		output = 
+				output.substring(2);
+		return output;
 	}
 	
 	// Getters and setters
@@ -116,7 +133,7 @@ public class PuzzleState {
 		return heuristic;
 	}
 
-	public void setHeuristic(int heuristic) {
+	public void setHeuristic(double heuristic) {
 		this.heuristic = heuristic;
 	}
 	

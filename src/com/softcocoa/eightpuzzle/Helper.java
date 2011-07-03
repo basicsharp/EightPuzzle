@@ -1,6 +1,8 @@
 package com.softcocoa.eightpuzzle;
 
+import java.util.Iterator;
 import java.util.Random;
+import java.util.TreeSet;
 
 public class Helper {
 	public static int[] randomInitialPuzzleStateTiles() {
@@ -21,5 +23,16 @@ public class Helper {
 				return i;
 		}
 		return -1; // not found!
+	}
+	
+	public static void removeHigherHeuristicPuzzleStateInTreeSet(PuzzleState expandedState, TreeSet<PuzzleState> nodes) {
+		Iterator<PuzzleState> iterator = nodes.iterator();
+		while (iterator.hasNext()) {
+			PuzzleState puzzleState = (PuzzleState) iterator.next();
+			if (expandedState.equals(puzzleState) && expandedState.getHeuristic() <= puzzleState.getHeuristic()) {
+				iterator.remove();
+				break;
+			}
+		}
 	}
 }
