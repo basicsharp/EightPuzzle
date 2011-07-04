@@ -3,7 +3,7 @@ package com.softcocoa.eightpuzzle.solvers;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.PriorityQueue;
 
 import com.softcocoa.eightpuzzle.C;
 import com.softcocoa.eightpuzzle.Helper;
@@ -12,12 +12,12 @@ import com.softcocoa.eightpuzzle.heuristic.HeuristicCalculator;
 
 public class AStarSearching extends PuzzleSolveAlgorithm {
 	
-	private TreeSet<PuzzleState> nodes;
+	private PriorityQueue<PuzzleState> nodes;
 	private ArrayList<PuzzleState> closedNodes;
 
 	public AStarSearching(PuzzleState initialState, HeuristicCalculator hCalculator) {
 		super(initialState, hCalculator);
-		nodes = new TreeSet<PuzzleState>(puzzleStateHeuristicComparator);
+		nodes = new PriorityQueue<PuzzleState>(C.INITIAL_CLOSED_LIST_SIZE, puzzleStateHeuristicComparator);
 		closedNodes = new ArrayList<PuzzleState>(C.INITIAL_CLOSED_LIST_SIZE);
 		nodes.add(initialState);
 		numberOfGeneratedNodes++;
@@ -28,7 +28,7 @@ public class AStarSearching extends PuzzleSolveAlgorithm {
 		PuzzleState finishState = null;
 		PuzzleState currentState = null;
 		do {
-			currentState = nodes.pollFirst();
+			currentState = nodes.poll();
 			System.out.println("current: " + currentState + "("+currentState.getHeuristic()+")");
 			
 			if (currentState.isFinishState()) {
@@ -45,7 +45,7 @@ public class AStarSearching extends PuzzleSolveAlgorithm {
 				double heuristic = distance + cost;
 				expandedState.setHeuristic(heuristic);
 				if (!closedNodes.contains(expandedState)) {
-					Helper.removeHigherHeuristicPuzzleStateInTreeSet(expandedState, nodes);
+					Helper.removeHigherHeuristicPuzzleState(expandedState, nodes);
 					System.out.println(expandedState + (", "+nodes.add(expandedState)) + " " + expandedState.getHeuristic());
 				}
 				else {
@@ -56,7 +56,7 @@ public class AStarSearching extends PuzzleSolveAlgorithm {
 			System.out.println(numberOfGeneratedNodes + "("+ nodes.size() +")");
 			if(nodes.size()<3) {
 				System.out.println("nodes==========================");
-				for (Iterator iterator = nodes.iterator(); iterator
+				for (Iterator<PuzzleState> iterator = nodes.iterator(); iterator
 						.hasNext();) {
 					PuzzleState puzzleState = (PuzzleState) iterator.next();
 					System.out.println(puzzleState);
@@ -65,8 +65,8 @@ public class AStarSearching extends PuzzleSolveAlgorithm {
 			}
 		} while(nodes.size()>0 && numberOfGeneratedNodes<C.NODE_LIMIT);
 		
-		if (finishState==null)
-			finishState = closedNodes.get(closedNodes.size()-1);
+		/*if (finishState==null)
+			finishState = closedNodes.get(closedNodes.size()-1);*/
 		
 		if (finishState != null) {
 			ArrayList<PuzzleState> solvingSteps = new ArrayList<PuzzleState>(C.INITIAL_STEP_LIST_SIZE);

@@ -1,4 +1,4 @@
-<Shell xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" x:Class="com.softcocoa.eightpuzzle.Main" text="Eight Puzzle" xmlns:p1="clr-namespace:java.lang">
+<Shell xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" x:Class="com.softcocoa.eightpuzzle.Main" text="EightPuzzle" xmlns:p1="clr-namespace:java.lang">
 	<Shell.layout>
 		<GridLayout makeColumnsEqualWidth="true"/>
 	</Shell.layout>

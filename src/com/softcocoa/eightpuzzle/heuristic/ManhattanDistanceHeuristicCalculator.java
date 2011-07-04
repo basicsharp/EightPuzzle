@@ -18,10 +18,13 @@ public class ManhattanDistanceHeuristicCalculator implements
 		for(int i=0;i<C.NUMBER_OF_TILES;i++){
 			targetTileIndex = Helper.searchTileInTiles(i, targetState.getTiles());
 			baseTileIndex = Helper.searchTileInTiles(i, baseState.getTiles());
+			
 			xTarget = (int)Math.floor(targetTileIndex/3);
 			xBase = (int)Math.floor(baseTileIndex/3);
+			
 			yTarget = targetTileIndex%3;
 			yBase = baseTileIndex%3;
+			
 			abs = Math.abs(xTarget-xBase) + Math.abs(yTarget-yBase);
 			manhattanDist += abs;
 		}

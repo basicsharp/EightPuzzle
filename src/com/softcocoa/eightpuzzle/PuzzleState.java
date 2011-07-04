@@ -2,9 +2,6 @@ package com.softcocoa.eightpuzzle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeSet;
-
-import com.softcocoa.eightpuzzle.heuristic.HeuristicCalculator;
 
 public class PuzzleState {
 	protected int[] tiles;
@@ -41,18 +38,6 @@ public class PuzzleState {
 		boolean blankTileLeftMovable = (blankTilePosition%C.PUZZLE_SIDE_LENGTH)-1 >= 0;
 		boolean blankTileRightMovable = (blankTilePosition%C.PUZZLE_SIDE_LENGTH)+1 < C.PUZZLE_SIDE_LENGTH;
 		
-		if (blankTileUpMovable) {
-			int[] newTiles = tiles.clone();
-			int swapPosition = blankTilePosition-C.PUZZLE_SIDE_LENGTH;
-			
-			int temp = newTiles[blankTilePosition];
-			newTiles[blankTilePosition] = newTiles[swapPosition];
-			newTiles[swapPosition] = temp;
-			
-			PuzzleState newState = new PuzzleState(this, newTiles);
-			expandedStates.add(newState);
-		}
-		
 		if (blankTileDownMovable) {
 			int[] newTiles = tiles.clone();
 			int swapPosition = blankTilePosition+C.PUZZLE_SIDE_LENGTH;
@@ -65,9 +50,9 @@ public class PuzzleState {
 			expandedStates.add(newState);
 		}
 		
-		if (blankTileLeftMovable) {
+		if (blankTileRightMovable) {
 			int[] newTiles = tiles.clone();
-			int swapPosition = blankTilePosition-1;
+			int swapPosition = blankTilePosition+1;
 			
 			int temp = newTiles[blankTilePosition];
 			newTiles[blankTilePosition] = newTiles[swapPosition];
@@ -77,9 +62,21 @@ public class PuzzleState {
 			expandedStates.add(newState);
 		}
 		
-		if (blankTileRightMovable) {
+		if (blankTileUpMovable) {
 			int[] newTiles = tiles.clone();
-			int swapPosition = blankTilePosition+1;
+			int swapPosition = blankTilePosition-C.PUZZLE_SIDE_LENGTH;
+			
+			int temp = newTiles[blankTilePosition];
+			newTiles[blankTilePosition] = newTiles[swapPosition];
+			newTiles[swapPosition] = temp;
+			
+			PuzzleState newState = new PuzzleState(this, newTiles);
+			expandedStates.add(newState);
+		}
+		
+		if (blankTileLeftMovable) {
+			int[] newTiles = tiles.clone();
+			int swapPosition = blankTilePosition-1;
 			
 			int temp = newTiles[blankTilePosition];
 			newTiles[blankTilePosition] = newTiles[swapPosition];

@@ -18,10 +18,13 @@ public class EuclideanDistanceHeuristicCalculator implements
 		for(int i=0;i<C.NUMBER_OF_TILES;i++){
 			targetTileIndex = Helper.searchTileInTiles(i, targetState.getTiles());
 			baseTileIndex = Helper.searchTileInTiles(i, baseState.getTiles());
+			
 			xTarget = (int)Math.floor(targetTileIndex/3);
 			xBase = (int)Math.floor(baseTileIndex/3);
+			
 			yTarget = targetTileIndex%3;
 			yBase = baseTileIndex%3;
+			
 			powerTwoSubt = Math.pow(xTarget-xBase, 2) + Math.pow(yTarget-yBase, 2);
 			sqrt = Math.sqrt(powerTwoSubt);
 			euclideanDist += sqrt;

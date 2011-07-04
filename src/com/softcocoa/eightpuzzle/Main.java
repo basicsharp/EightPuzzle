@@ -5,12 +5,14 @@ import java.util.ArrayList;
 
 import org.eclipse.e4.xwt.IConstants;
 import org.eclipse.e4.xwt.XWT;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import com.softcocoa.eightpuzzle.heuristic.EuclideanDistanceHeuristicCalculator;
@@ -23,6 +25,7 @@ import com.softcocoa.eightpuzzle.solvers.PuzzleSolveAlgorithm;
 
 public class Main {
 	
+	private static Shell shell;
 	private static CLabel[] uiTiles;
 	private static Combo heuristicCombo;
 	private static Button solveButton;
@@ -41,7 +44,7 @@ public class Main {
 		URL url = Main.class.getResource(Main.class.getSimpleName()
 				+ IConstants.XWT_EXTENSION_SUFFIX);
 		Control control = XWT.load(url);
-		Shell shell = control.getShell();
+		shell = control.getShell();
 		shell.layout();
 		centerInDisplay(shell);
 		
@@ -136,13 +139,21 @@ public class Main {
 		PuzzleSolveAlgorithm algorithm = new AStarSearching(initialPuzzleState, hCalculator);
 		steps = algorithm.solvePuzzle();
 		
-		numberOfSteps = steps.size();
-		stepIndex = steps.size()-1;
-		drawPuzzle(steps.get(stepIndex));
-		printStepLabel(stepIndex+1);
-		
-		prevButton.setEnabled(true);
-		nextButton.setEnabled(false);
+		if (steps != null) {
+			numberOfSteps = steps.size();
+			stepIndex = steps.size()-1;
+			drawPuzzle(steps.get(stepIndex));
+			printStepLabel(stepIndex+1);
+			
+			prevButton.setEnabled(true);
+			nextButton.setEnabled(false);
+		}
+		else {
+			MessageBox dialog = new MessageBox(shell, SWT.ICON_ERROR);
+			dialog.setText(C.APP_NAME);
+			dialog.setMessage("Finish state not found!");
+			dialog.open();
+		}
 	}
 	public void onPrevButtonSelection(Event event) {
 		if(stepIndex>0) {
